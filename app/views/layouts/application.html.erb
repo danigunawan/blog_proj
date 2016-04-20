@@ -7,8 +7,39 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class= "container">
+  <%= link_to "Home", root_path %>
+
+  ||
+
+  <%= link_to "About", about_path %>
+
+  ||
+
+  <%= link_to "Posts", posts_path %>
+
+  ||
+
+  <%= link_to "MAKE NU POST", new_path %>
+
+  ||
+
+  <%= link_to "Kiss Tha Sky", contact_us_path %>
+
+  ||
+
+  <% if user_signed_in? %>
+    Hello,<span style="color:blue"> <%= current_user.first_name %></span>!
+    Welcome to the<span style="color:green"> CHRONIC BLERG </span>
+    <%= link_to "Logout", sessions_path, method: :delete,
+        data: {confirm: "are you sure you want to log out homie?"}%>
+  <% else %>
+    <%= link_to "Login", new_session_path %> |
+    <%= link_to "Sign Up", new_user_path %>
+  <% end %>
+  <hr>
 
 <%= yield %>
-
+  </div>
 </body>
 </html>

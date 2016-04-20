@@ -1,4 +1,24 @@
 Rails.application.routes.draw do
+
+    resources :users, only: [:new, :create]
+
+    resources :sessions, only: [:new, :create] do
+      delete :destroy, on: :collection
+    end
+
+    resources :posts
+
+    root "home#index"
+
+    get "/about" => 'home#about', as: :about
+
+    get "/new" => 'posts#new', as: :new
+
+    get "/contact_us" => "contact_us#new", as: :contact_us
+    post "/contact_us"=> "contact_us#create"
+
+
+    #get "/posts"=> 'posts#index', as: :index
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -53,4 +73,6 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+
 end

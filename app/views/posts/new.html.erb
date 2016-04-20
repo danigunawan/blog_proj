@@ -1,0 +1,17 @@
+<h1> NEW POSTTTT</h1>
+
+<%= @post.errors.full_messages.join", " %>
+
+<%= form_for @post do |post| %>
+  <div>
+    <%= post.label :title %>
+    <%= post.text_field :title %>
+  </div>
+
+  <div>
+    <%= post.label :body %>
+    <%= post.text_area :body %>
+  </div>
+  <%= post.submit "Submit" %>
+
+<% end %>

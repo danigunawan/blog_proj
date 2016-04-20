@@ -1,0 +1,19 @@
+<h1> CONTACT UZ </h1>
+
+<%= form_tag contact_us_path do %>
+  <div>
+    <%= label_tag :full_name %>
+    <%= text_field_tag :full_name, nil, {placeholder: "SNOOP DOGG"} %>
+  </div>
+
+  <div>
+    <%= label_tag :email %>
+    <%= email_field_tag :email, nil, {placeholder: "snoopdoggydogg@thadogpound.ca"} %>
+  </div>
+
+  <div>
+    <%= label_tag :messages %>
+    <%= text_area_tag :messages, nil, {placeholder: "TYPE HERE BRUV"} %>
+  </div>
+  <%= submit_tag "Catch A CONTACT!" %>
+<% end %>
