@@ -1,3 +1,5 @@
 class Comment < ActiveRecord::Base
-  validates :body, presence: true, uniqueness: {message: "must be unique!"}
+  belongs_to :post
+
+  validates :body, presence: true
 end
