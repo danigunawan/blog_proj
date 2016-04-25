@@ -1,10 +1,19 @@
-<h1><%= @post.title %></h1>
+<h2> Title: <%= @post.title %></h2>
 
-<p><%= @post.body %></p>
+<h3> Post Content: </h3>
+<p> <%= @post.body %> </p>
 
+<% if can? :edit, @post %>
+  <%= link_to "Edit", edit_post_path(@post) %>
+<% end %>
+<% if can? :destroy, @post %>
+  <%= link_to "Delete", post_path(@post),
+                        method: :delete,
+                        data: {confirm: "Are you sure?"} %>
+<% end %>
 <hr>
 
-<h2>Add a comment</h2>
+<h4>Add a Comment</h4>
 <% if @comment.errors.any? %>
   <ul>
     <% @comment.errors.full_messages.each do |msg| %>
@@ -12,6 +21,7 @@
     <% end %>
   </ul>
 <% end %>
+
 <%= form_for [@post, @comment] do |f| %>
 <div>
   <%= f.label :body %>
@@ -24,14 +34,14 @@
 
 <h2>Comments</h2>
 <% @post.comments.each do |comment| %>
-  <p><%= comment.body %></p>
+  <p> <%= comment.body %> </p>
 <% end %>
 
-<hr>
-
-<% if can? :edit, @post %>
-  <%= link_to "Edit", edit_post_path(@post) %>
-<% end %>
-<% if can? :destroy, @post %>
-  <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm: "Are you sure?"} %>
-<% end %>
+  <% if can? :edit, @comment %>
+    <%= link_to "Edit", edit_comment_path(@comment) %>
+  <% end %>
+  <% if can? :destroy, @comment %>
+    <%= link_to "Delete", comment_path(@comment),
+                          method: :delete,
+                          data: {confirm: "Are you sure?"} %>
+  <% end %>

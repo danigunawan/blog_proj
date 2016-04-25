@@ -1,0 +1,13 @@
+<h1> Edit Your Comment </h1>
+
+<%# this might not be defined in post controller %>
+<%= @comment.errors.full_messages.join(", ") %>
+
+<%= form_for @comment do |comment| %>
+  <div>
+    <%= comment.label :body %>
+    <%= comment.text_area :body %>
+  </div>
+
+  <%= comment.submit %>
+<% end %>
