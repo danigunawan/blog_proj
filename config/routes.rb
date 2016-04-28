@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   resources :posts do
-    resources :comments
+    resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create]
   end
+
+  resources :comments, only: [:destroy, :edit]
 
   resources :users, only: [:new, :create]
 
@@ -10,6 +13,8 @@ Rails.application.routes.draw do
   end
 
     root "home#index"
+
+    get "/likes" => "likes#index", as: :user_likes
 
     get "/about" => 'home#about', as: :about
 

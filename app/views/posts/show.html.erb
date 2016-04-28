@@ -1,7 +1,13 @@
-<h2> Title: <%= @post.title %></h2>
-
 <h3> Post Content: </h3>
+<h2> Title: <%= @post.title %></h2>
 <p> <%= @post.body %> </p>
+<p> <%= @post.created_at %> </p>
+
+<% if @like.present? && @like.persisted? %>
+  <%= link_to "Un-Like", post_like_path(@post, @like), method: :delete %>
+<% else %>
+  <%= link_to "Like", post_likes_path(@post), method: :post %>
+<% end %>
 
 <% if can? :edit, @post %>
   <%= link_to "Edit", edit_post_path(@post) %>
@@ -16,9 +22,9 @@
 <h4>Add a Comment</h4>
 <% if @comment.errors.any? %>
   <ul>
-    <% @comment.errors.full_messages.each do |msg| %>
-      <li><%= msg %><li>
-    <% end %>
+  <% @comment.errors.full_messages.each do |msg| %>
+    <li><%= msg %><li>
+  <% end %>
   </ul>
 <% end %>
 
@@ -33,15 +39,18 @@
 <hr>
 
 <h2>Comments</h2>
+<hr>
 <% @post.comments.each do |comment| %>
   <p> <%= comment.body %> </p>
-<% end %>
 
-  <% if can? :edit, @comment %>
-    <%= link_to "Edit", edit_comment_path(@comment) %>
+  <% if can? :edit, comment %>
+    <%= link_to "Edit", edit_comment_path(comment) %>
   <% end %>
-  <% if can? :destroy, @comment %>
-    <%= link_to "Delete", comment_path(@comment),
+
+  <% if can? :destroy, comment %>
+    <%= link_to "Delete", comment_path(comment),
                           method: :delete,
                           data: {confirm: "Are you sure?"} %>
   <% end %>
+
+<% end %>

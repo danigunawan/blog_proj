@@ -11,6 +11,11 @@ class Ability
       post.user == user
     end
 
+    can :manage, Comment do |comment|
+      comment.user == user
+    end
+
+
     #can [:update, :destroy], [Comment]
   end
     # Define abilities for the passed in user here. For example:

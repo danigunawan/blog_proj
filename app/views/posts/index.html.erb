@@ -8,3 +8,5 @@ style="width:304px;height:300px;float: right;">
     <%= link_to post.title, post_path(post) %>
   </div>
 <% end %>
+
+<%= paginate @posts %>

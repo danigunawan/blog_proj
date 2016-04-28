@@ -1,0 +1,12 @@
+<p>Hello <%= @post.user.first_name %>,</p>
+
+<p> <%= @post.users.map(&:first_name).join(", ") %> likes your post! </p>
+
+<p>Post title: <%= @post.title %></p>
+
+
+<%= link_to "Click here to view the question", post_url(@post) %>
+
+<p>With chronic,</p>
+
+<p>Chronic Blerg Team</p>

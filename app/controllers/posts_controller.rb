@@ -2,6 +2,10 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_post, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @posts = Post.all.page params[:page]
+  end
+
   def new
     # we need to define a new `Question` object in order to be able to
     # properly generate a form in Rails
@@ -15,13 +19,13 @@ class PostsController < ApplicationController
     if @post.save
       #render text: "SUCCESS"
       #render :show
-      #redirect_to question_path({id: @question.id})
-      #redirect_to question_path({@question.id})
+      #redirect_to post_path({id: @post.id})
+      #redirect_to post_path({@post.id})
       redirect_to posts_path, notice: "Post Created!"
     else
       # this will render `app/views/questions/new.html.erb` because the default
       # in this action is to render `app/views/questions/create.html.erb`
-      flash[:alert] = "Question didn't save!"
+      flash[:alert] = "Post didn't save!"
       render :new
     end
   end
@@ -30,11 +34,8 @@ class PostsController < ApplicationController
   # params[:id] will be `56`
   def show
     @post = Post.find params[:id]
+    @like = @post.like_for(current_user)
     @comment = Comment.new
-  end
-
-  def index
-    @posts = Post.all.order("id")
   end
 
   def edit
@@ -51,8 +52,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    redirect_to root_path, alert: "uhhmmm, no access" unless can? :destroy,
-    @post
+    redirect_to root_path, alert: "uhhmmm, no access" unless can? :destroy, @post
       @post.destroy
       redirect_to posts_path, notice: "Post Gone"
   end

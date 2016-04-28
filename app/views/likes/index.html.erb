@@ -1,0 +1,5 @@
+<h1> Your Liked Posts </h1>
+<% @liked_posts.each do |list| %>
+  <%= link_to list.title, post_path(list) %>
+  <br>
+<% end %>
